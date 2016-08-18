@@ -7,13 +7,13 @@
 </head>
 	<body>
 		<img id="BlueBrick" width="1" height="1" src="../images/Blue Brick.jpg" alt="Brick">
-		<img id="Background" width="1" height="1" src="../images/Background.jpg" alt="Background">
 		<canvas id="myCanvas" width=1280 height="720"></canvas>
 		<script type="text/javascript" src="../js/jquery.js">
 		</script>
 		<script type="text/javascript" src="../js/breakOut.js"></script>
 		<script>
-			breakOut();
+			game = new breakOut();
+			game.play();
 		</script>
 
 
