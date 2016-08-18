@@ -61,7 +61,8 @@ function breakOut(){
 	var brickOffsetTop = 30;
 	var brickOffsetLeft = 30;	
 	var itemSpeed = 2;
-	var textColor = "#000000";
+	var textColor = "#FFFFFF";
+	var backgroundColor = "#000000";
 	
 	var bonus = new bonusItem(itemSpeed, 0, 0, 0, 0, 0, 0, 0, brickWidth, brickHeight, false);
 	var ball = new pingPongBall(5, "#0000FF", canvas.width / 2, canvas.height - 30, Math.floor((Math.random() * 5) + 2), -Math.floor((Math.random() * 5) + 2))
@@ -83,7 +84,8 @@ function breakOut(){
 	//Add key listeners
 	document.addEventListener("keydown", keyDownHandler, false);
 	document.addEventListener("keyup", keyUpHandler, false);
-
+	
+	
 	//Define breakOut methods
 	function keyDownHandler(e) {
 		if (e.keyCode == 39) {
@@ -101,6 +103,11 @@ function breakOut(){
 		else if (e.keyCode == 37) {
 			leftPressed = false;
 		}
+	}
+	
+	function drawBackground(){
+		ctx.fillStyle = backgroundColor;
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
 	}
 
 	function destroyBricksThatWereHit() {
@@ -127,8 +134,6 @@ function breakOut(){
 
 	function createBonusItem(bonusX, bonusY) {
 		itemType = Math.floor((Math.random() * 7) + 1); //RANDOM BONUS TYPE (EACH TYPE HAS DIFFERENT COLOR & BEHAVIOR)
-		//var brickX = ix;
-		//var brickY = iy;
 		var colorR = 0;
 		var colorG = 0;
 		var colorB = 0;
@@ -159,12 +164,11 @@ function breakOut(){
 				colorG = 0;
 				colorB = 0;
 				/*colorA = .75;*/
-
 				break;
 			case 5:
-				colorR = 0;
-				colorG = 0;
-				colorB = 0;
+				colorR = 255;
+				colorG = 255;
+				colorB = 255;
 				/*colorA = .75;*/
 				break;
 			case 6:
@@ -181,7 +185,6 @@ function breakOut(){
 				break;
 		}
 		bonus = new bonusItem(2, bonusX, bonusY, itemType, colorR, colorG, colorB, colorA, brickWidth, brickHeight, true);
-		
 	}
 	
 	function moveBonusItem(){
@@ -196,20 +199,12 @@ function breakOut(){
 				bonus.visible = false;
 			}
 			else {
-			//createBonusItem(itemLeft, itemTop + itemSpeed);
-			
-		
 			ctx.beginPath();
 			ctx.rect(bonus.x, bonus.y, bonus.width, bonus.height);
-			/*ctx.strokeStyle = "rgba(" + colorR + ", " + colorG + ", " + colorB + ", " + colorA + ")";*/
 			ctx.fillStyle = "rgba(" + bonus.colorR + ", " + bonus.colorG + ", " + bonus.colorB + ", " + bonus.colorA + ")";
-			/*ctx.stroke();*/
 			ctx.fill();
 			ctx.name = "itemBlock";
 			ctx.closePath();
-			//itemLeft = brickX;
-			//itemTop = brickY;
-			//bonusItemVisible = true;
 			}
 		}
 	}
@@ -251,6 +246,7 @@ function breakOut(){
 		ctx.fill();
 		ctx.closePath();
 	}
+	
 	function drawPaddle() {
 		ctx.beginPath();
 		ctx.rect(paddle.x, canvas.height - paddle.height, paddle.width, paddle.height);
@@ -302,7 +298,7 @@ function breakOut(){
 		paddle.speed = 7;
 	}
 	
-	function restartGame(){
+	function loseGame(){
 		alert("GAME OVER");
 		document.location.reload();
 	}
@@ -315,7 +311,7 @@ function breakOut(){
 	function endRound(){
 		lives--;
 		if (!lives) {
-			restartGame();
+			loseGame();
 		}
 		else {
 			relaunchBall();
@@ -366,9 +362,9 @@ function breakOut(){
 		ball.y += ball.dy;
 	}
 	
-	//Main game loop
-	function gameLoop() {
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
+	function play(){
+		//Main game loop
+		drawBackground();
 		drawBrickArray();
 		moveBonusItem();
 		drawBonusItem();
@@ -381,8 +377,8 @@ function breakOut(){
 		catchBonusItemsFalling();
 		movePaddle();
 		moveBall();
-		requestAnimationFrame(gameLoop);
+		requestAnimationFrame(play);
 	}
 	
-gameLoop();
+	play();
 }
