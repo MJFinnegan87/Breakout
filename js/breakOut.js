@@ -57,7 +57,7 @@ function breakOut(){
 			this.y += this.dy;
 		}
 		
-		this.relaunchBall = function(){
+		this.relaunch = function(){
 			this.x = canvas.width / 2;
 			this.y = canvas.height - 30;
 			this.dx = Math.floor((Math.random() * 5) + 2);
@@ -126,7 +126,7 @@ function breakOut(){
 		this.width = new brick().width;
 		this.height = new brick().height;
 		
-		this.assignBonusItem = function(bonusX, bonusY) {
+		this.assignNew = function(bonusX, bonusY) {
 			this.type = Math.floor((Math.random() * 7) + 1); //RANDOM BONUS TYPE (EACH TYPE HAS DIFFERENT COLOR & BEHAVIOR)
 			this.colorR = 0;
 			this.colorG = 0;
@@ -266,7 +266,7 @@ function breakOut(){
 							score++;
 							this.numberOfBricksBroken++;
 							if (bonus.visible == false) {
-								bonus.assignBonusItem(thisBrick.x, thisBrick.y);
+								bonus.assignNew(thisBrick.x, thisBrick.y);
 							}
 							if (this.numberOfBricksBroken == this.brickColumnCount * this.brickRowCount) {
 								winGame();
@@ -366,7 +366,7 @@ function breakOut(){
 			loseGame();
 		}
 		else {
-			ball.relaunchBall();
+			ball.relaunch();
 		}
 	}
 	
