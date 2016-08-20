@@ -42,8 +42,8 @@ function breakOut(){
 		
 		this.draw = function() {
 			ctx.beginPath();
-			ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-			ctx.fillStyle = ball.color;
+			ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+			ctx.fillStyle = this.color;
 			ctx.fill();
 			ctx.closePath();
 		}
@@ -83,7 +83,6 @@ function breakOut(){
 				if ((((this.x + this.dx) >= paddle.x) && ((this.x + this.dx) <= (paddle.x + paddle.width))) || (((this.x) >= paddle.x) && ((this.x) <= (paddle.x + paddle.width)))){
 					//Bounce the ball off the paddle
 					this.dy = -this.dy;
-					
 					//Add the paddle x speed to the ball speed
 					if (rightPressed && (paddle.x < (canvas.width - paddle.width))) {
 						this.dx = this.dx + paddle.speed;
@@ -145,7 +144,6 @@ function breakOut(){
 					this.colorG = 255;
 					this.colorB = 0;
 					/*this.colorA = .75;*/
-
 					break;
 				case 3:
 					this.colorR = 0;
